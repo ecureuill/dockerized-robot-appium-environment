@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  appium:
+    image: appium/appium
+    container_name: appium
+    privileged: true
+    ports:
+      - "4723:4723"
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+
+  robot:
+    build:
+      context: .
+      dockerfile: robot.dockerfile
+    container_name: robot
+    volumes:
+      - .:/tests
+    user: pwuser
+    ipc: "host"
+    security_opt:
+      - seccomp=./seccomp_profile.json
+    tty: true
+    stdin_open: true
+
