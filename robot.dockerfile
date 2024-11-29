@@ -15,3 +15,7 @@ RUN pip3 install --no-cache-dir --user --upgrade robotframework
 RUN pip3 install --no-cache-dir --user --upgrade  robotframework-appiumlibrary
 
 WORKDIR ./tests
+
+COPY requirements.txt ./
+RUN if [ -f requirements.txt ]; then pip3 install --no-cache-dir --user --upgrade -r requirements.txt; fi
+RUN rm -f requirements.txt
